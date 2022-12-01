@@ -3,7 +3,6 @@ import './App.css';
 import AxiosTest from "./components/AxiosTest";
 
 function App() {
-  console.log(AxiosTest)
   return (
     <div className="App">
       <AxiosTest/>
