@@ -1,38 +1,59 @@
-.App {
-  text-align: center;
+.navbar {
+    width: 100vw;
+    color: white;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar-text {
+    color: whitesmoke !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#navbarLogo {
+    border: solid 1px whitesmoke !important;
+    padding: 5px;
+    border-radius: .5rem;
+    margin-right: 1rem;
+    color: whitesmoke;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.outerCard {
+    background-image: url("img/hangrylogo.jpg");
+    background-position: center;
+    background-size: contain;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.innerCard {
+    background-color: rgba(245, 245, 245, 0);
+    border: none;
+    margin-bottom: 18rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#searchInput {
+    border-radius: .5rem;
+    text-align: center;
+    background-color: rgba(248, 248, 255, 0.7);
+}
+#searchForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.submitBtn{
+    margin-top: .2rem;
+    padding: .3rem;
+    background-color: rgba(245, 245, 245, 0.51);
+    border: solid black .1rem;
+    border-radius: .5rem;
+}
+.submitBtn:hover{
+    border: solid whitesmoke .1rem;
+}
+.selectionCard{
+    position: relative;
+    top: 7rem;
+    height: 1.5rem;
 }
