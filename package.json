@@ -2,7 +2,7 @@
   "name": "hangryfrontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://chase-forestello.github.io/hangryfrontend",
+  "homepage": "https://hangrydevelopment.github.io/HangryFrontend",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
