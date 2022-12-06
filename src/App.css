@@ -5,6 +5,7 @@
 
 .navbar-text {
     color: whitesmoke !important;
+    text-decoration: none;
 }
 
 #navbarLogo {
@@ -56,4 +57,7 @@
     position: relative;
     top: 7rem;
     height: 1.5rem;
+}
+#navbarCode{
+    margin-left: 2rem;
 }
