@@ -2,9 +2,27 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 
 export default function RestaurantSearch(props) {
-    const [searchLoc, setSearchLoc] = useState("");
-    const [url, setUrl] = useState(``)
+    let userLat;
+    let userLong;
+    let userLocReq;
+
+    const [searchLoc, setSearchLoc] = useState('');
+    const [url, setUrl] = useState("")
     const [selection, setSelection] = useState('Hangry?');
+
+    const successCallback = (position) => {
+        console.log(`${userLat}, ${userLong}`)
+        userLat = position.coords.latitude;
+        userLong = position.coords.longitude;
+        userLocReq = true;
+        setSearchLoc(`${userLat}, ${userLong}`)
+    };
+    const errorCallback = (error) => {
+        console.log(error);
+        userLocReq = false;
+    };
+
+
     const handleChange = (event) => {
         setSearchLoc(event.target.value);
     }
@@ -23,9 +41,11 @@ export default function RestaurantSearch(props) {
                 console.log('error')
             })
         }
-
         getYelpData();
     }, [url])
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    }, [])
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(searchLoc)
@@ -46,8 +66,8 @@ export default function RestaurantSearch(props) {
         //     .catch(err => console.error(err));
         // console.log(places);
     };
-
     return (
+
         <div className={"text-center"}>
             <form id={"searchForm"} onSubmit={handleSubmit}>
                 <input

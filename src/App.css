@@ -7,7 +7,9 @@
     color: whitesmoke !important;
     text-decoration: none;
 }
-
+.alert{
+    margin-bottom: 0;
+}
 #navbarLogo {
     border: solid 1px whitesmoke !important;
     padding: 5px;
