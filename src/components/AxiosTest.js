@@ -41,7 +41,17 @@ export default function RestaurantSearch(props) {
                 console.log('error')
             })
         }
-        getYelpData();
+        async function getYelpNetlify(){
+            await axios.get(`${url}`).then((res) => {
+                const random = Math.floor(Math.random() * res.data.businesses.length);
+                console.log("Hanrgy selection: " + res.data.businesses[random].name)
+                setSelection(res.data.businesses[random].name)
+            }).catch((err) => {
+                console.log('error')
+            })
+        }
+        getYelpNetlify();
+        // getYelpData();
     }, [url])
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
@@ -49,7 +59,7 @@ export default function RestaurantSearch(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(searchLoc)
-        setUrl(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=${searchLoc}&term=fast%20food&radius=40000&categories=Fast%20food&open_now=true&sort_by=best_match&matches_party_size_param=true&limit=20`)
+        setUrl(`https://yelp-backend.netlify.app/.netlify/functions/search?location=${searchLoc}&term=fast%20food`)
 
         // const options = {
         //     method: 'GET',

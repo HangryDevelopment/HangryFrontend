@@ -17,7 +17,7 @@ function App() {
                 </div>
             </nav>
             <div className="alert alert-info" role="alert">
-                Hangry will not work at the moment due to CORS issues. For a work around use CORS Anywhere: <a href={'https://cors-anywhere.herokuapp.com/corsdemo'}>https://cors-anywhere.herokuapp.com/corsdemo</a>. Fixing CORS issues with a backend solution ASAP.
+                Hangry is using a server provided by <a href={"https://github.com/productioncoder"} target={"_blank"}>productioncoder</a> to resolve CORS issues.
             </div>
             <div className="card outerCard">
                 <div className="card innerCard">
