@@ -6,16 +6,13 @@ export default function RestaurantSearch(props) {
     let userLong;
     let userLocReq;
 
-    const [searchLoc, setSearchLoc] = useState('');
     const [url, setUrl] = useState("")
     const [selection, setSelection] = useState('Hangry?');
 
     const successCallback = (position) => {
-        console.log(`${userLat}, ${userLong}`)
         userLat = position.coords.latitude;
         userLong = position.coords.longitude;
-        userLocReq = true;
-        setSearchLoc(`${userLat}, ${userLong}`)
+        console.log(`${userLat}, ${userLong}`)
     };
     const errorCallback = (error) => {
         console.log(error);
@@ -41,7 +38,7 @@ export default function RestaurantSearch(props) {
                 console.log('error')
             })
         }
-        async function getYelpNetlify(){
+        async function getYelpRandom(){
             await axios.get(`${url}`).then((res) => {
                 const random = Math.floor(Math.random() * res.data.businesses.length);
                 console.log("Hanrgy selection: " + res.data.businesses[random].name)
@@ -50,7 +47,7 @@ export default function RestaurantSearch(props) {
                 console.log('error')
             })
         }
-        getYelpNetlify();
+        getYelpRandom();
         // getYelpData();
     }, [url])
     useEffect(() => {

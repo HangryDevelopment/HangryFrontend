@@ -29,3 +29,5 @@ function App() {
 }
 
 export default App;
+
+setUrl(`http://localhost:8080/api/yelpFetch/${searchLoc}`)
