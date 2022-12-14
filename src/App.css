@@ -7,9 +7,11 @@
     color: whitesmoke !important;
     text-decoration: none;
 }
-.alert{
+
+.alert {
     margin-bottom: 0;
 }
+
 #navbarLogo {
     border: solid 1px whitesmoke !important;
     padding: 5px;
@@ -39,27 +41,31 @@
     text-align: center;
     background-color: rgba(248, 248, 255, 0.7);
 }
-#searchForm{
+
+#searchForm {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.submitBtn{
+.submitBtn {
     margin-top: .2rem;
     padding: .3rem;
     background-color: rgba(245, 245, 245, 0.51);
     border: solid black .1rem;
     border-radius: .5rem;
 }
-.submitBtn:hover{
+
+.submitBtn:hover {
     border: solid whitesmoke .1rem;
 }
-.selectionCard{
+
+.selectionCard {
     position: relative;
     top: 7rem;
     height: 1.5rem;
 }
-#navbarCode{
+
+#navbarCode {
     margin-left: 2rem;
 }
