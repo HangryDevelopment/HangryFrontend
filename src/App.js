@@ -16,9 +16,6 @@ function App() {
                     </a>
                 </div>
             </nav>
-            <div className="alert alert-info" role="alert">
-                Hangry is using a server provided by <a href={"https://github.com/productioncoder"} target={"_blank"}>productioncoder</a> to resolve CORS issues.
-            </div>
             <div className="card outerCard">
                 <div className="card innerCard">
                     <AxiosTest/>
@@ -29,5 +26,3 @@ function App() {
 }
 
 export default App;
-
-setUrl(`http://localhost:8080/api/yelpFetch/${searchLoc}`)

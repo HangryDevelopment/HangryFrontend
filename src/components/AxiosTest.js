@@ -4,19 +4,19 @@ import axios from "axios";
 export default function RestaurantSearch(props) {
     let userLat;
     let userLong;
-    let userLocReq;
 
     const [url, setUrl] = useState("")
+    const [searchLoc, setSearchLoc] = useState("");
     const [selection, setSelection] = useState('Hangry?');
 
     const successCallback = (position) => {
         userLat = position.coords.latitude;
         userLong = position.coords.longitude;
         console.log(`${userLat}, ${userLong}`)
+        setSearchLoc(`${userLat}, ${userLong}`)
     };
     const errorCallback = (error) => {
         console.log(error);
-        userLocReq = false;
     };
 
 
@@ -55,8 +55,7 @@ export default function RestaurantSearch(props) {
     }, [])
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(searchLoc)
-        setUrl(`https://yelp-backend.netlify.app/.netlify/functions/search?location=${searchLoc}&term=fast%20food`)
+        setUrl(`http://ec2-3-135-20-154.us-east-2.compute.amazonaws.com:8080/api/yelpFetch/${searchLoc}`)
 
         // const options = {
         //     method: 'GET',
