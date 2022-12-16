@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {HANGRY_LOCAL_API, HANGRY_UBUNTUEC2_API} from "../public_constants";
+import {HANGRY_LOCAL_API, HANGRY_UBUNTUEC2_API, HANGRY_UBUNTUEC2_CLOUDFLARE_API} from "../public_constants";
 
 export default function RestaurantSearch(props) {
     let userLat;
@@ -58,7 +58,7 @@ export default function RestaurantSearch(props) {
     }, [])
     const handleSubmit = (event) => {
         event.preventDefault();
-        setUrl(HANGRY_UBUNTUEC2_API + searchLoc)
+        setUrl(HANGRY_UBUNTUEC2_CLOUDFLARE_API + searchLoc)
     };
     return (
 
