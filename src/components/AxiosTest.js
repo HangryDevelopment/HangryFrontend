@@ -9,6 +9,7 @@ export default function RestaurantSearch(props) {
     const [url, setUrl] = useState("")
     const [searchLoc, setSearchLoc] = useState("");
     const [selection, setSelection] = useState('Hangry?');
+    const [yelpUrl, setYelpUrl] = useState("https://www.yelp.com/");
 
     const successCallback = (position) => {
         userLat = position.coords.latitude;
@@ -25,26 +26,30 @@ export default function RestaurantSearch(props) {
         setSearchLoc(event.target.value);
     }
     useEffect(() => {
-        async function getYelpData() {
-            await axios.get(`${url}`, {
-                headers: {
-                    Authorization: `Bearer ${process.env.REACT_APP_YELP_FUSION_API_KEY}`
-
-                },
-            }).then((res) => {
-                const random = Math.floor(Math.random() * res.data.businesses.length);
-                console.log("Hanrgy selection: " + res.data.businesses[random].name)
-                setSelection(res.data.businesses[random].name)
-            }).catch((err) => {
-                console.log('error')
-            })
-        }
+        // async function getYelpData() {
+        //     await axios.get(`${url}`, {
+        //         headers: {
+        //             Authorization: `Bearer ${process.env.REACT_APP_YELP_FUSION_API_KEY}`
+        //
+        //         },
+        //     }).then((res) => {
+        //         const random = Math.floor(Math.random() * res.data.businesses.length);
+        //         console.log("Hanrgy selection: " + res.data.businesses[random].name)
+        //         setSelection(res.data.businesses[random].name)
+        //     }).catch((err) => {
+        //         console.log('error')
+        //     })
+        // }
 
         async function getYelpRandom() {
             await axios.get(`${url}`).then((res) => {
                 const random = Math.floor(Math.random() * res.data.businesses.length);
-                console.log("Hanrgy selection: " + res.data.businesses[random].name)
+                console.log("Hanrgy selection: " + res.data.businesses[random].name + ` [${random}]`)
+                for (let i = 0; i < res.data.businesses.length; i++) {
+                    console.log(res.data.businesses[i].name)
+                }
                 setSelection(res.data.businesses[random].name)
+                setYelpUrl(res.data.businesses[random].url)
             }).catch((err) => {
                 console.log('error')
             })
@@ -58,10 +63,9 @@ export default function RestaurantSearch(props) {
     }, [])
     const handleSubmit = (event) => {
         event.preventDefault();
-        setUrl(HANGRY_UBUNTUEC2_CLOUDFLARE_API + searchLoc)
+        setUrl(HANGRY_LOCAL_API + searchLoc)
     };
     return (
-
         <div className={"text-center"}>
             <form id={"searchForm"} onSubmit={handleSubmit}>
                 <input
@@ -74,7 +78,7 @@ export default function RestaurantSearch(props) {
                 />
                 <button className={"submitBtn"} type={"submit"}>Hangry!</button>
             </form>
-            <div className={"card selectionCard"}>{selection}</div>
+            <div className={"card selectionCard"}><a href={yelpUrl} target={"_blank"}>{selection}</a></div>
         </div>
     )
 
