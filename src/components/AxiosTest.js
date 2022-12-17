@@ -63,7 +63,7 @@ export default function RestaurantSearch(props) {
     }, [])
     const handleSubmit = (event) => {
         event.preventDefault();
-        setUrl(HANGRY_LOCAL_API + searchLoc)
+        setUrl(HANGRY_UBUNTUEC2_CLOUDFLARE_API + searchLoc)
     };
     return (
         <div className={"text-center"}>
