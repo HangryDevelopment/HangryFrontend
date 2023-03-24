@@ -17,7 +17,7 @@ function App() {
                 </div>
             </nav>
             <div className="alert alert-info" role="alert">
-                 Due to mixed content issues please disable your browsers secure connection requirement (the small lock by the URL). Working on HTTPS for backend.
+                 Hangry is in development and is currently not functional. Working on HTTPS for backend to enable Yelp Fusion API calls.
             </div>
             <div className="card outerCard">
                 <div className="card innerCard">
