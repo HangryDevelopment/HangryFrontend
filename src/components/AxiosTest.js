@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { HANGRY_LOCAL_API, HANGRY_LINUXEC2_API } from "../public_constants";
+import { HANGRY_LOCAL_API, HANGRY_LINUXEC2_API, HANGRY_GLITCH_API } from "../public_constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
@@ -36,7 +36,7 @@ export default function RestaurantSearch(props) {
   }, []);
   const handleSubmit = (event) => {
     event.preventDefault();
-    setUrl(HANGRY_LINUXEC2_API + searchLoc);
+    setUrl(HANGRY_GLITCH_API + searchLoc);
 
     async function getYelpRandom() {
       await axios
