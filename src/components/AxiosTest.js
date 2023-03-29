@@ -36,7 +36,7 @@ export default function RestaurantSearch(props) {
   }, []);
   const handleSubmit = (event) => {
     event.preventDefault();
-    setUrl(HANGRY_LOCAL_API + searchLoc);
+    setUrl(HANGRY_LINUXEC2_API + searchLoc);
 
     async function getYelpRandom() {
       await axios
