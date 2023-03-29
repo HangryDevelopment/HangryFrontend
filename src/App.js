@@ -23,7 +23,7 @@ function App() {
       </nav>
       <div className="alert alert-info" role="alert">
         Hangry is in development. Working on HTTPS for backend. Currently
-        hosting the back-end on Glitch as a workaround. Give the server some
+        hosting the back-end on Glitch as a workaround. Click the "Hangry!" button a few times and then give the server some
         time to spin up for a demo. Check out the GitHub repo to try it out
         yourself!
       </div>
