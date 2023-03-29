@@ -47,7 +47,11 @@ export default function RestaurantSearch(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(url);
+    // console.log(url);
+    if (searchLoc === "") {
+      alert("Please enter a search location");
+      return;
+    }
 
     async function getYelpRandom() {
       await axios
@@ -99,7 +103,7 @@ export default function RestaurantSearch(props) {
               id="selectionCard-img"
               className="img-fluid rounded-start"
               src={selectionImg}
-              alt="restaurant image"
+              alt="restaurant"
             ></img>
             <div className="selectionCard-info">
               <span>
@@ -117,7 +121,12 @@ export default function RestaurantSearch(props) {
         ) : (
           <div></div>
         )}
-        <a className="selectionCard-title" href={yelpUrl} rel="noreferrer" target={"_blank"}>
+        <a
+          className="selectionCard-title"
+          href={yelpUrl}
+          rel="noreferrer"
+          target={"_blank"}
+        >
           {selection}
         </a>
       </div>

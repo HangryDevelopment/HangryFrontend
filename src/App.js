@@ -10,11 +10,16 @@ function App() {
             className="navbar-brand"
             href="https://github.com/Chase-Forestello"
             target="_blank"
+            rel="noreferrer"
           >
             <span id="navbarLogo">&lt; / &gt;</span>
             <span className="navbar-text">Chase Forestello</span>
           </a>
-          <a href="https://github.com/HangryDevelopment" target="_blank">
+          <a
+            href="https://github.com/HangryDevelopment"
+            rel="noreferrer"
+            target="_blank"
+          >
             <span className={"navbar-text"} id={"navbarCode"}>
               [CODE]
             </span>
@@ -22,10 +27,10 @@ function App() {
         </div>
       </nav>
       <div className="alert alert-info" role="alert">
-        Hangry is in development. Working on HTTPS for backend. Currently
-        hosting the back-end on Glitch as a workaround. Click the "Hangry!" button a few times and then give the server some
-        time to spin up for a demo. Check out the GitHub repo to try it out
-        yourself!
+        Hangry is in development. Working on HTTPS for back-end. Currently
+        hosting the back-end on Glitch as a workaround. Enter a location and
+        click the "Hangry!" button. Give the server some time to spin up for the
+        demo (~ 1 minute).
       </div>
       <div className="outerCard">
         <div className="card innerCard">
