@@ -1,71 +1,111 @@
 .navbar {
-    color: white;
+  color: white;
 }
 
 .navbar-text {
-    color: whitesmoke !important;
-    text-decoration: none;
+  color: whitesmoke !important;
+  text-decoration: none;
 }
 
 .alert {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 #navbarLogo {
-    border: solid 1px whitesmoke !important;
-    padding: 5px;
-    border-radius: .5rem;
-    margin-right: 1rem;
-    color: whitesmoke;
+  border: solid 1px whitesmoke !important;
+  padding: 5px;
+  border-radius: 0.5rem;
+  margin-right: 1rem;
+  color: whitesmoke;
 }
 
 .outerCard {
-    background-image: url("img/hangrylogo.jpg");
-    background-position: center;
-    background-size: contain;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-image: url("img/hangrylogo.jpg");
+  background-position: center;
+  background-size: contain;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .innerCard {
-    background-color: rgba(245, 245, 245, 0);
-    border: none;
-    margin-bottom: 18rem;
+  background-color: rgba(245, 245, 245, 0);
+  border: none;
 }
 
 #searchInput {
-    border-radius: .5rem;
-    text-align: center;
-    background-color: rgba(248, 248, 255, 0.7);
+  border-radius: 0.5rem;
+  text-align: center;
+  background-color: rgba(248, 248, 255, 0.7);
 }
 
 #searchForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8rem;
 }
 
 .submitBtn {
-    margin-top: .2rem;
-    padding: .3rem;
-    background-color: rgba(245, 245, 245, 0.51);
-    border: solid black .1rem;
-    border-radius: .5rem;
+  margin-top: 0.2rem;
+  padding: 0.3rem;
+  background-color: rgba(245, 245, 245, 0.51);
+  border: solid black 0.1rem;
+  border-radius: 0.5rem;
 }
 
 .submitBtn:hover {
-    border: solid whitesmoke .1rem;
+  border: solid whitesmoke 0.1rem;
 }
 
 .selectionCard {
-    position: relative;
-    top: 7rem;
-    height: 1.5rem;
+  /* position: relative;
+    top: 7rem; */
+  margin-top: 1rem;
+  height: fit-content;
+}
+
+.selectionCard-title {
+  font-weight: bold;
+}
+
+#selectionCard-img {
+  height: 25rem;
+}
+
+.selectionCard-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    font-weight: bold;
+}
+
+.selectionCard-info-open {
+  color: #06b278;
+}
+
+.selectionCard-info-closed {
+  color: red;
+}
+
+.selectionCard-info-price{
+    color: #084f09;
 }
 
 #navbarCode {
-    margin-left: 2rem;
+  margin-left: 2rem;
+}
+
+@media only screen and (max-width: 550px) {
+  .outerCard {
+    background-size: cover;
+  }
+
+  #selectionCard-img {
+    height: 10rem;
+  }
 }

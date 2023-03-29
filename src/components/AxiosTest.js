@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { HANGRY_LOCAL_API, HANGRY_LINUXEC2_API } from "../public_constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 export default function RestaurantSearch(props) {
   let userLat;
@@ -10,6 +12,10 @@ export default function RestaurantSearch(props) {
   const [searchLoc, setSearchLoc] = useState("");
   const [selection, setSelection] = useState("Hangry?");
   const [yelpUrl, setYelpUrl] = useState("https://www.yelp.com/");
+  const [selectionImg, setSelectionImg] = useState();
+  const [rating, setRating] = useState();
+  const [closed, setClosed] = useState();
+  const [bisPrice, setBisPrice] = useState();
 
   const successCallback = (position) => {
     userLat = position.coords.latitude;
@@ -24,21 +30,13 @@ export default function RestaurantSearch(props) {
   const handleChange = (event) => {
     setSearchLoc(event.target.value);
   };
+
   useEffect(() => {
-    // async function getYelpData() {
-    //     await axios.get(`${url}`, {
-    //         headers: {
-    //             Authorization: `Bearer ${process.env.REACT_APP_YELP_FUSION_API_KEY}`
-    //
-    //         },
-    //     }).then((res) => {
-    //         const random = Math.floor(Math.random() * res.data.businesses.length);
-    //         console.log("Hanrgy selection: " + res.data.businesses[random].name)
-    //         setSelection(res.data.businesses[random].name)
-    //     }).catch((err) => {
-    //         console.log('error')
-    //     })
-    // }
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  }, []);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setUrl(HANGRY_LOCAL_API + searchLoc);
 
     async function getYelpRandom() {
       await axios
@@ -53,8 +51,14 @@ export default function RestaurantSearch(props) {
           for (let i = 0; i < res.data.businesses.length; i++) {
             console.log(res.data.businesses[i].name);
           }
-          setSelection(res.data.businesses[random].name);
-          setYelpUrl(res.data.businesses[random].url);
+          let selectedBis = res.data.businesses[random];
+          setSelection(selectedBis.name);
+          setYelpUrl(selectedBis.url);
+          setSelectionImg(selectedBis.image_url);
+          setRating(selectedBis.rating);
+          setClosed(selectedBis.is_closed);
+          setBisPrice(selectedBis.price);
+        
         })
         .catch((err) => {
           console.log("error");
@@ -62,18 +66,10 @@ export default function RestaurantSearch(props) {
     }
 
     getYelpRandom();
-    // getYelpData();
-  }, [url]);
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  }, []);
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setUrl(HANGRY_LINUXEC2_API + searchLoc);
   };
   return (
     <div className={"text-center"}>
-      <form id={"searchForm"} onSubmit={handleSubmit}>
+      <form id={"searchForm"}>
         <input
           id="searchInput"
           type="text"
@@ -82,12 +78,36 @@ export default function RestaurantSearch(props) {
           value={searchLoc}
           onChange={handleChange}
         />
-        <button className={"submitBtn"} type={"submit"}>
+        <button className={"submitBtn"} type={"submit"} onClick={handleSubmit}>
           Hangry!
         </button>
       </form>
       <div className={"card selectionCard"}>
-        <a href={yelpUrl} target={"_blank"}>
+        {selection !== "Hangry?" ? (
+          // style={{backgroundImage: "url(" + selectionImg + ")"}}
+          <div className="card">
+            <img
+              id="selectionCard-img"
+              className="img-fluid rounded-start"
+              src={selectionImg}
+            ></img>
+            <div className="selectionCard-info">
+              <span>
+                {rating}/5&nbsp;
+                <FontAwesomeIcon icon={faStar} color="#f2b038" />
+              </span>
+              {closed === false ? (
+                <span className="selectionCard-info-open">Open</span>
+              ) : (
+                <span className="selectionCard-info-closed">Closed</span>
+              )}
+              <span className="selectionCard-info-price">{bisPrice}</span>
+            </div>
+          </div>
+        ) : (
+          <div></div>
+        )}
+        <a className="selectionCard-title" href={yelpUrl} target={"_blank"}>
           {selection}
         </a>
       </div>
