@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.abebe3a2.css",
-    "main.js": "/static/js/main.e3c8a9b2.js",
+    "main.css": "/static/css/main.75c63757.css",
+    "main.js": "/static/js/main.9769e4fe.js",
     "static/js/787.d1b24431.chunk.js": "/static/js/787.d1b24431.chunk.js",
     "static/media/hangrylogo.jpg": "/static/media/hangrylogo.301a34a83093afc5e1f3.jpg",
     "index.html": "/index.html",
-    "main.abebe3a2.css.map": "/static/css/main.abebe3a2.css.map",
-    "main.e3c8a9b2.js.map": "/static/js/main.e3c8a9b2.js.map",
+    "main.75c63757.css.map": "/static/css/main.75c63757.css.map",
+    "main.9769e4fe.js.map": "/static/js/main.9769e4fe.js.map",
     "787.d1b24431.chunk.js.map": "/static/js/787.d1b24431.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.abebe3a2.css",
-    "static/js/main.e3c8a9b2.js"
+    "static/css/main.75c63757.css",
+    "static/js/main.9769e4fe.js"
   ]
 }
