@@ -22,8 +22,10 @@ function App() {
         </div>
       </nav>
       <div className="alert alert-info" role="alert">
-        Hangry is in development and is currently not functional. Working on
-        HTTPS for backend to enable Yelp Fusion API calls.<br/>Check out the GitHub repo to try it out yourself!
+        Hangry is in development. Working on HTTPS for backend. Currently
+        hosting the back-end on Glitch as a workaround. Give the server some
+        time to spin up for a demo. Check out the GitHub repo to try it out
+        yourself!
       </div>
       <div className="outerCard">
         <div className="card innerCard">
