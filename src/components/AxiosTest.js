@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { HANGRY_LOCAL_API, HANGRY_LINUXEC2_API, HANGRY_GLITCH_API } from "../public_constants";
+import {
+  HANGRY_LOCAL_API,
+  HANGRY_LINUXEC2_API,
+  HANGRY_GLITCH_API,
+} from "../public_constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
@@ -17,26 +21,33 @@ export default function RestaurantSearch(props) {
   const [closed, setClosed] = useState();
   const [bisPrice, setBisPrice] = useState();
 
-  const successCallback = (position) => {
-    userLat = position.coords.latitude;
-    userLong = position.coords.longitude;
-    console.log(`${userLat}, ${userLong}`);
-    setSearchLoc(`${userLat}, ${userLong}`);
-  };
-  const errorCallback = (error) => {
-    console.log(error);
-  };
-
   const handleChange = (event) => {
+    event.persist();
     setSearchLoc(event.target.value);
   };
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  }, []);
+    setUrl(HANGRY_GLITCH_API + searchLoc);
+  }, [searchLoc]);
+
+  // For grabbing user location, will switch to a button so providing location is optional
+  // const successCallback = (position) => {
+  //   userLat = position.coords.latitude;
+  //   userLong = position.coords.longitude;
+  //   console.log(`${userLat}, ${userLong}`);
+  //   // setSearchLoc(`${userLat}, ${userLong}`);
+  // };
+  // const errorCallback = (error) => {
+  //   console.log(error);
+  // };
+
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  // }, []);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    setUrl(HANGRY_GLITCH_API + searchLoc);
+    console.log(url);
 
     async function getYelpRandom() {
       await axios
@@ -58,7 +69,6 @@ export default function RestaurantSearch(props) {
           setRating(selectedBis.rating);
           setClosed(selectedBis.is_closed);
           setBisPrice(selectedBis.price);
-        
         })
         .catch((err) => {
           console.log("error");
@@ -84,12 +94,12 @@ export default function RestaurantSearch(props) {
       </form>
       <div className={"card selectionCard"}>
         {selection !== "Hangry?" ? (
-          // style={{backgroundImage: "url(" + selectionImg + ")"}}
           <div className="card">
             <img
               id="selectionCard-img"
               className="img-fluid rounded-start"
               src={selectionImg}
+              alt="restaurant image"
             ></img>
             <div className="selectionCard-info">
               <span>
@@ -107,7 +117,7 @@ export default function RestaurantSearch(props) {
         ) : (
           <div></div>
         )}
-        <a className="selectionCard-title" href={yelpUrl} target={"_blank"}>
+        <a className="selectionCard-title" href={yelpUrl} rel="noreferrer" target={"_blank"}>
           {selection}
         </a>
       </div>
