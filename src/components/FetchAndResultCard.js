@@ -114,8 +114,8 @@ export default function FetchAndResultCard(props) {
             <div className="selectionCard-info">
               <span>
                 <StarCount rating={rating}/>
-                {rating}/5&nbsp;
-                <FontAwesomeIcon icon={faStar} color="#f2b038" />
+                {/* {rating}/5&nbsp;
+                <FontAwesomeIcon icon={faStar} color="#f2b038" /> */}
               </span>
               {closed === false ? (
                 <span className="selectionCard-info-open">Open</span>
