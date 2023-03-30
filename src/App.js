@@ -1,5 +1,5 @@
 import "./App.css";
-import AxiosTest from "./components/AxiosTest";
+import FetchAndResultCard from "./components/FetchAndResultCard";
 
 function App() {
   return (
@@ -34,7 +34,7 @@ function App() {
       </div>
       <div className="outerCard">
         <div className="card innerCard">
-          <AxiosTest />
+          <FetchAndResultCard />
         </div>
       </div>
     </div>
