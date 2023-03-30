@@ -28,7 +28,7 @@ export default function FetchAndResultCard(props) {
   };
 
   useEffect(() => {
-    setUrl(HANGRY_LOCAL_API + searchLoc);
+    setUrl(HANGRY_GLITCH_API + searchLoc);
   }, [searchLoc]);
 
   // For grabbing user location, will switch to a button so providing location is optional
