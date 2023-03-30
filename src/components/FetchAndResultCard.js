@@ -7,8 +7,9 @@ import {
 } from "../public_constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import StarCount from "./StarCount";
 
-export default function RestaurantSearch(props) {
+export default function FetchAndResultCard(props) {
   let userLat;
   let userLong;
 
@@ -27,7 +28,7 @@ export default function RestaurantSearch(props) {
   };
 
   useEffect(() => {
-    setUrl(HANGRY_GLITCH_API + searchLoc);
+    setUrl(HANGRY_LOCAL_API + searchLoc);
   }, [searchLoc]);
 
   // For grabbing user location, will switch to a button so providing location is optional
@@ -81,6 +82,11 @@ export default function RestaurantSearch(props) {
 
     getYelpRandom();
   };
+
+  const getRatingCount = () => {
+    console.log(rating);
+
+  }
   return (
     <div className={"text-center"}>
       <form id={"searchForm"}>
@@ -107,8 +113,9 @@ export default function RestaurantSearch(props) {
             ></img>
             <div className="selectionCard-info">
               <span>
-                {rating}/5&nbsp;
-                <FontAwesomeIcon icon={faStar} color="#f2b038" />
+                <StarCount rating={rating}/>
+                {/* {rating}/5&nbsp;
+                <FontAwesomeIcon icon={faStar} color="#f2b038" /> */}
               </span>
               {closed === false ? (
                 <span className="selectionCard-info-open">Open</span>
