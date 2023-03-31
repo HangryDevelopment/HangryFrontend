@@ -3,7 +3,6 @@
 ### To-Do List
 
 <ul>
-<li>Geolocation button/option</li>
 <li>Break up ResponseCard component?</li>
 <li>Landing page</li>
 <li>Styling</li>
