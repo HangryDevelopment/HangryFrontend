@@ -51,13 +51,27 @@
   margin-top: 0.2rem;
   padding: 0.3rem;
   background-color: rgba(245, 245, 245, 0.51);
-  border: solid black 0.1rem;
+  border: solid black 3px;
   border-radius: 0.5rem;
 }
 
 .submitBtn:hover {
-  border: solid rgb(240, 134, 134) 1px;
-  background-color: rgb(0, 0, 0);
+  border-color: rgb(240, 134, 134);
+  background-color: #000;
+  color: #fff;
+}
+
+.search-input-loc-button{
+  display: flex;
+}
+
+.get-current-loc-btn{
+  border-radius: 5px;
+}
+
+.get-current-loc-btn:hover{
+  border-color: rgb(240, 134, 134);
+  background-color: #000;
   color: #fff;
 }
 
