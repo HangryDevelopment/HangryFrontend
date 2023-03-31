@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
   HANGRY_LOCAL_API,
-  HANGRY_LINUXEC2_API,
   HANGRY_GLITCH_API,
 } from "../public_constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
