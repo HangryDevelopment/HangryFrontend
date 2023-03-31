@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  HANGRY_LOCAL_API,
-  HANGRY_GLITCH_API,
-} from "../public_constants";
+import { HANGRY_LOCAL_API, HANGRY_GLITCH_API } from "../public_constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
+import {
+  faStar,
+  faStarHalf,
+  faLocationCrosshairs,
+} from "@fortawesome/free-solid-svg-icons";
 // import StarCount from "./StarCount";
 
 export default function FetchAndResultCard(props) {
@@ -21,6 +22,40 @@ export default function FetchAndResultCard(props) {
   const [rating, setRating] = useState();
   const [closed, setClosed] = useState();
   const [bisPrice, setBisPrice] = useState();
+
+  // geolocation button
+  const GetCurrentLocation = () => {
+    const userCoords = () =>
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
+    return (
+      <button
+        type="button"
+        className="get-current-loc-btn"
+        onClick={userCoords}
+      >
+        <FontAwesomeIcon icon={faLocationCrosshairs} />
+      </button>
+    );
+  };
+
+  // Callbacks for grabbing user location, will switch to a button so providing location is optional
+  const successCallback = (position) => {
+    userLat = position.coords.latitude;
+    userLong = position.coords.longitude;
+    console.log(`${userLat}, ${userLong}`);
+    setSearchLoc(`${userLat}, ${userLong}`);
+  };
+  const errorCallback = (error) => {
+    console.log(error);
+    alert(
+      "Error getting your location. Please type a location in the search box."
+    );
+  };
+
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  // }, []);
 
   // component to handle rendering star rating
   const StarCount = () => {
@@ -103,32 +138,20 @@ export default function FetchAndResultCard(props) {
     getYelpRandom();
   };
 
-  // For grabbing user location, will switch to a button so providing location is optional
-  // const successCallback = (position) => {
-  //   userLat = position.coords.latitude;
-  //   userLong = position.coords.longitude;
-  //   console.log(`${userLat}, ${userLong}`);
-  //   // setSearchLoc(`${userLat}, ${userLong}`);
-  // };
-  // const errorCallback = (error) => {
-  //   console.log(error);
-  // };
-
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  // }, []);
-
   return (
-    <div className={"text-center"}>
-      <form id={"searchForm"}>
-        <input
-          id="searchInput"
-          type="text"
-          name="Search Location"
-          placeholder="Search Location"
-          value={searchLoc}
-          onChange={handleChange}
-        />
+    <div className="text-center">
+      <form id="searchForm">
+        <div className="search-input-loc-button">
+          <input
+            id="searchInput"
+            type="search"
+            name="Search location"
+            placeholder="Search Location"
+            value={searchLoc}
+            onChange={handleChange}
+          />
+          <GetCurrentLocation />
+        </div>
         <button className={"submitBtn"} type={"submit"} onClick={handleSubmit}>
           Hangry!
         </button>
