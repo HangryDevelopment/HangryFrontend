@@ -61,15 +61,15 @@
   color: #fff;
 }
 
-.search-input-loc-button{
+.search-input-loc-button {
   display: flex;
 }
 
-.get-current-loc-btn{
+.get-current-loc-btn {
   border-radius: 5px;
 }
 
-.get-current-loc-btn:hover{
+.get-current-loc-btn:hover {
   border-color: rgb(240, 134, 134);
   background-color: #000;
   color: #fff;
@@ -90,14 +90,14 @@
   height: 25rem;
 }
 
-.selectionCard-info{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: center;
-    font-weight: bold;
+.selectionCard-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  font-weight: bold;
 }
 
 .selectionCard-info-open {
@@ -108,8 +108,8 @@
   color: red;
 }
 
-.selectionCard-info-price{
-    color: #084f09;
+.selectionCard-info-price {
+  color: #084f09;
 }
 
 #navbarCode {
