@@ -1,5 +1,5 @@
 import "./App.css";
-import FetchAndResultCard from "./components/FetchAndResultCard";
+import ResponseCard from "./components/ResponseCard";
 
 function App() {
   return (
@@ -30,11 +30,11 @@ function App() {
         Hangry is in development. Working on HTTPS for back-end. Currently
         hosting the back-end on Glitch as a workaround. Enter a location and
         click the "Hangry!" button. Give the server some time to spin up for the
-        demo (~ 1 minute).
+        demo (~1 minute).
       </div>
       <div className="outerCard">
         <div className="card innerCard">
-          <FetchAndResultCard />
+          <ResponseCard />
         </div>
       </div>
     </div>
