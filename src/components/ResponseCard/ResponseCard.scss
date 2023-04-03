@@ -31,6 +31,41 @@
   }
 }
 
+#searchForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10rem;
+  .search-input-loc-button {
+    display: flex;
+    #searchInput {
+      border-radius: 0.5rem;
+      text-align: center;
+      background-color: rgba(248, 248, 255, 0.7);
+    }
+    .get-current-loc-btn {
+      border-radius: 5px;
+    }
+    .get-current-loc-btn:hover {
+      border-color: rgb(240, 134, 134);
+      background-color: #000;
+      color: #fff;
+    }
+  }
+  .submitBtn {
+    margin-top: 0.2rem;
+    padding: 0.3rem;
+    background-color: rgba(245, 245, 245, 0.51);
+    border: solid black 3px;
+    border-radius: 0.5rem;
+  }
+  .submitBtn:hover {
+    border-color: rgb(240, 134, 134);
+    background-color: #000;
+    color: #fff;
+  }
+}
+
 @media only screen and (max-width: 770px) {
   .outerCard {
     background-size: cover;
