@@ -1,0 +1,21 @@
+.navbar {
+  color: white;
+  #navbarLogo {
+    border: solid 1px whitesmoke !important;
+    padding: 5px;
+    border-radius: 0.5rem;
+    margin-right: 1rem;
+    color: whitesmoke;
+  }
+  .navbar-text {
+    color: whitesmoke !important;
+    text-decoration: none;
+  }
+  #navbarCode {
+    margin-left: 2rem;
+  }
+}
+
+.alert {
+  margin-bottom: 0;
+}
