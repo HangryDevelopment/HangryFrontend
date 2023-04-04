@@ -140,57 +140,63 @@ export default function FetchAndResultCard(props) {
   };
 
   return (
-    <div className="text-center">
-      <form id="searchForm">
-        <div className="search-input-loc-button">
-          <input
-            id="searchInput"
-            type="search"
-            name="Search location"
-            placeholder="Search Location"
-            value={searchLoc}
-            onChange={handleChange}
-          />
-          <GetCurrentLocation />
-        </div>
-        <button className={"submitBtn"} type={"submit"} onClick={handleSubmit}>
-          Hangry!
-        </button>
-      </form>
-      <div className={"card selectionCard"}>
-        {selection !== "Hangry?" ? (
-          <div className="card">
-            <img
-              id="selectionCard-img"
-              className="img-fluid rounded-start"
-              src={selectionImg}
-              alt="restaurant"
-            ></img>
-            <div className="selectionCard-info">
-              <span>
-                <StarCount rating={rating} />
-                {/* {rating}/5&nbsp;
-                <FontAwesomeIcon icon={faStar} color="#f2b038" /> */}
-              </span>
-              {closed === false ? (
-                <span className="selectionCard-info-open">Open</span>
-              ) : (
-                <span className="selectionCard-info-closed">Closed</span>
-              )}
-              <span className="selectionCard-info-price">{bisPrice}</span>
-            </div>
+    <div className="outerCard">
+      <div className="text-center">
+        <form id="searchForm">
+          <div className="search-input-loc-button">
+            <input
+              id="searchInput"
+              type="search"
+              name="Search location"
+              placeholder="Search Location"
+              value={searchLoc}
+              onChange={handleChange}
+            />
+            <GetCurrentLocation />
           </div>
-        ) : (
-          <div></div>
-        )}
-        <a
-          className="selectionCard-title"
-          href={yelpUrl}
-          rel="noreferrer"
-          target={"_blank"}
-        >
-          {selection}
-        </a>
+          <button
+            className={"submitBtn"}
+            type={"submit"}
+            onClick={handleSubmit}
+          >
+            Hangry!
+          </button>
+        </form>
+        <div className={"card selectionCard"}>
+          {selection !== "Hangry?" ? (
+            <div className="card">
+              <img
+                id="selectionCard-img"
+                className="img-fluid rounded-start"
+                src={selectionImg}
+                alt="restaurant"
+              ></img>
+              <div className="selectionCard-info">
+                <span>
+                  <StarCount rating={rating} />
+                  {/* {rating}/5&nbsp;
+                <FontAwesomeIcon icon={faStar} color="#f2b038" /> */}
+                </span>
+                {closed === false ? (
+                  <span className="selectionCard-info-open">Open</span>
+                ) : (
+                  <span className="selectionCard-info-closed">Closed</span>
+                )}
+                <span className="selectionCard-info-price">{bisPrice}</span>
+              </div>
+            </div>
+          ) : (
+            <div></div>
+          )}
+          <a
+            className="selectionCard-title"
+            href={yelpUrl}
+            rel="noreferrer"
+            target={"_blank"}
+          >
+            {selection}
+          </a>
+        </div>
       </div>
     </div>
   );

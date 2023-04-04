@@ -1,0 +1,21 @@
+.landing-page-cont {
+  background-image: url("../../img/hangrylogo.jpg");
+  background-position: center;
+  background-size: contain;
+  height: 100vh;
+  .welcome-card {
+    background-color: #d1842de0;
+    padding: 1rem;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    width: 50%;
+    height: 100vh;
+    float: right;
+    display: flex;
+    justify-content: center;
+    .burger-link {
+      color: #964b00;
+      height: 3rem;
+    }
+  }
+}

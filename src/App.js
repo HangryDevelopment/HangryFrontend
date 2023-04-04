@@ -1,17 +1,18 @@
 import "./App.scss";
-import { Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // import the router
+import LandingPage from "./components/LandingPage/LandingPage";
 import ResponseCard from "./components/ResponseCard/ResponseCard";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Layout />}>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
           <Route path="/hangry" element={<ResponseCard />} />
-        </Route>
-      </Routes>
-    </>
+        </Routes>
+      </div>
   );
 }
 

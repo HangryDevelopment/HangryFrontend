@@ -1,7 +1,7 @@
 import "./Navbar.scss";
 import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faBurger } from "@fortawesome/free-solid-svg-icons";
 const Navbar = () => {
   return (
     <div>
@@ -16,10 +16,14 @@ const Navbar = () => {
             <span id="navbarLogo">&lt; / &gt;</span>
             <span className="navbar-text">Chase Forestello</span>
           </a>
-          <NavLink exact="true" className={(navData) =>
-            navData.isActive ? "home-link active" : "home-link"
-          } to="/hangry">
-            <FontAwesomeIcon icon={faHome}/>
+          <NavLink
+            exact="true"
+            className={(navData) =>
+              navData.isActive ? "home-link active" : "home-link"
+            }
+            to="/hangry"
+          >
+            <FontAwesomeIcon className="burger-nav-icon" icon={faBurger}>Hello</FontAwesomeIcon>
           </NavLink>
           <a
             href="https://github.com/HangryDevelopment"
