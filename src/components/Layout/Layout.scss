@@ -10,4 +10,15 @@
     background-color: rgba(245, 245, 245, 0);
     border: none;
   }
+  .welcome-card {
+    background-color: #d1842de0;
+    padding: 1rem;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+
+    .burger-link {
+      color: #964B00;
+      height: 3rem;
+    }
+  }
 }
