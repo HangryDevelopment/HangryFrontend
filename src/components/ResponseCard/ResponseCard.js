@@ -54,11 +54,7 @@ export default function FetchAndResultCard(props) {
     );
   };
 
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  // }, []);
-
-  // component to handle rendering star rating
+  // function component to handle rendering star rating
   const StarCount = () => {
     let starCount = rating.toString();
     let stars;

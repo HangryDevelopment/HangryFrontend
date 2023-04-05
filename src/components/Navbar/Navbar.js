@@ -23,7 +23,9 @@ const Navbar = () => {
             }
             to="/hangry"
           >
-            <FontAwesomeIcon className="burger-nav-icon" icon={faBurger}>Hello</FontAwesomeIcon>
+            <FontAwesomeIcon className="burger-nav-icon" icon={faBurger}>
+              Hello
+            </FontAwesomeIcon>
           </NavLink>
           <a
             href="https://github.com/HangryDevelopment"
