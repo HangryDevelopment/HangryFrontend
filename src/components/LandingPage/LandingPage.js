@@ -1,3 +1,4 @@
+import React from "react";
 import "./LandingPage.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBurger } from "@fortawesome/free-solid-svg-icons";
