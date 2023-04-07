@@ -4,6 +4,7 @@ import {
   USER_API_BASE_URL_LOCAL,
   USER_API_BASE_URL_GLITCH,
 } from "../../public_constants";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [user, setUser] = useState({
@@ -13,12 +14,14 @@ const LoginPage = () => {
   });
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [isAuthorized, setIsAuthorized] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState({
     id: null,
     userName: null,
     isAuthorized: false,
   });
+
+  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -26,6 +29,45 @@ const LoginPage = () => {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+  };
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    if (username.length < 0 || password.length < 0) {
+      alert("Username and password cannot be blank!");
+    }
+    fetchUser();
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let username = document.querySelector(".username-input").value;
+    let password = document.querySelector(".password-input").value;
+    if (username.length === 0 || password.length === 0) {
+      alert("Username and password cannot be blank!");
+      return;
+    } else {
+      console.log(username, password);
+
+      let newUser = {
+        userName: username,
+        password: password,
+      };
+      let request = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newUser),
+      };
+      fetch(USER_API_BASE_URL_GLITCH + "create", request).then((response) => {
+        if (response.status !== 200) {
+          alert("Registration failed try again: " + response.status);
+          console.log(response.statusText);
+        } else {
+          console.log(response.status);
+          alert("Success!");
+        }
+      });
+    }
   };
 
   let getUserData;
@@ -45,6 +87,10 @@ const LoginPage = () => {
     console.log("Updating local storage");
     localStorage.setItem("user", JSON.stringify(isAuthorized));
   }, [isAuthorized]);
+
+  // useEffect(() => {
+  //   useNavigate("/hangry");
+  // }, [loggedIn]);
 
   async function fetchUser() {
     const requestOptions = {
@@ -95,6 +141,9 @@ const LoginPage = () => {
         password: getUserData.password,
         role: getUserData.role,
       });
+      setTimeout(() => {
+        navigate("/hangry");
+      }, 500);
     } else {
       console.log("Password does not match stored password");
       console.log("Unauthorized");
@@ -106,45 +155,6 @@ const LoginPage = () => {
       localStorage.setItem("user", JSON.stringify(isAuthorized));
       console.log(user);
       return;
-    }
-  };
-
-  const handleLogin = (event) => {
-    event.preventDefault();
-    if (username.length < 0 || password.length < 0) {
-      alert("Username and password cannot be blank!");
-    }
-    fetchUser();
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    let username = document.querySelector(".username-input").value;
-    let password = document.querySelector(".password-input").value;
-    if (username.length === 0 || password.length === 0) {
-      alert("Username and password cannot be blank!");
-      return;
-    } else {
-      console.log(username, password);
-
-      let newUser = {
-        userName: username,
-        password: password,
-      };
-      let request = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUser),
-      };
-      fetch(USER_API_BASE_URL_GLITCH + "create", request).then((response) => {
-        if (response.status !== 200) {
-          alert("Registration failed try again: " + response.status);
-          console.log(response.statusText);
-        } else {
-          console.log(response.status);
-          alert("Success!");
-        }
-      });
     }
   };
 

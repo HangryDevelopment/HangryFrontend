@@ -20,6 +20,16 @@
   #navbarCode {
     margin-left: 2rem;
   }
+  .logout-btn {
+    border: solid #000 2px;
+    border-radius: 5px;
+    padding: 0.5rem;
+  }
+  .logout-btn:hover {
+    border-color: rgb(240, 134, 134);
+    background-color: #000;
+    cursor: pointer;
+  }
 }
 
 .alert {
