@@ -97,7 +97,7 @@ const LoginPage = () => {
       method: "GET",
     };
     getUserData = await fetch(
-      USER_API_BASE_URL_LOCAL + "username/" + username,
+      USER_API_BASE_URL_GLITCH + "username/" + username,
       requestOptions
     ).then(async function (response) {
       if (!response.ok) {
