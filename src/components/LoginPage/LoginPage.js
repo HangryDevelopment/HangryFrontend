@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./LoginPage.scss";
 import {
   USER_API_BASE_URL_LOCAL,
@@ -6,9 +6,117 @@ import {
 } from "../../public_constants";
 
 const LoginPage = () => {
+  const [user, setUser] = useState({
+    id: null,
+    userName: null,
+    password: null,
+  });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  // const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState({
+    id: null,
+    userName: null,
+    isAuthorized: false,
+  });
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  let getUserData;
+
+  useEffect(() => {
+    setUsername(username);
+    setPassword(password);
+  }, [username, password]);
+
+  useEffect(() => {
+    let navBarBrand = document.querySelector(".navbar-text");
+    navBarBrand.innerText = user.userName;
+  }, [user.userName]);
+
+  // set user in local storage after authorization
+  useEffect(() => {
+    console.log("Updating local storage");
+    localStorage.setItem("user", JSON.stringify(isAuthorized));
+  }, [isAuthorized]);
+
+  async function fetchUser() {
+    const requestOptions = {
+      method: "GET",
+    };
+    getUserData = await fetch(
+      USER_API_BASE_URL_LOCAL + "username/" + username,
+      requestOptions
+    ).then(async function (response) {
+      if (!response.ok) {
+        console.log("fetch user error: " + response.status);
+      } else {
+        console.log("fetch user ok");
+        return await response.json();
+      }
+    });
+    if (getUserData) {
+      console.log("Authenticating");
+      authenticateUser();
+    } else {
+      setIsAuthorized({
+        id: null,
+        userName: null,
+        isAuthorized: false,
+      });
+      console.log("User does not exist");
+      console.log("Unauthorized");
+    }
+  }
+
+  const authenticateUser = () => {
+    // console.log("User inputs: " + username, password);
+    // console.log("DB: " + getUserData.userName, getUserData.password);
+    // console.log(getUserData);
+    if (
+      getUserData.userName === username &&
+      getUserData.password === password
+    ) {
+      console.log("Authenticated!");
+      setIsAuthorized({
+        id: getUserData.id,
+        userName: getUserData.userName,
+        isAuthorized: true,
+      });
+      setUser({
+        id: getUserData.id,
+        userName: getUserData.userName,
+        password: getUserData.password,
+        role: getUserData.role,
+      });
+    } else {
+      console.log("Password does not match stored password");
+      console.log("Unauthorized");
+      setIsAuthorized({
+        id: null,
+        userName: null,
+        isAuthorized: false,
+      });
+      localStorage.setItem("user", JSON.stringify(isAuthorized));
+      console.log(user);
+      return;
+    }
+  };
+
   const handleLogin = (event) => {
     event.preventDefault();
+    if (username.length < 0 || password.length < 0) {
+      alert("Username and password cannot be blank!");
+    }
+    fetchUser();
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     let username = document.querySelector(".username-input").value;
@@ -39,6 +147,7 @@ const LoginPage = () => {
       });
     }
   };
+
   return (
     <div className="card container login-page-cont">
       <div className="login-test-cont card">
@@ -49,6 +158,8 @@ const LoginPage = () => {
             type="text"
             name="username"
             placeholder="Username"
+            value={username}
+            onChange={handleUsernameChange}
           />
           <label htmlFor="password">Password:</label>
           <input
@@ -56,6 +167,8 @@ const LoginPage = () => {
             type="password"
             name="password"
             placeholder="Password"
+            value={password}
+            onChange={handlePasswordChange}
           />
           <button
             className="user-submit-btn"
