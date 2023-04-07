@@ -15,7 +15,7 @@ const Layout = () => {
           <br />
           Click the burger to get started!
         </p>
-        <Link to="/login">
+        <Link to="/hangry">
           <FontAwesomeIcon className="burger-link" icon={faBurger} />
         </Link>
       </div>
