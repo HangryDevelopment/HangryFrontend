@@ -1,9 +1,27 @@
 import "./Navbar.scss";
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faBurger } from "@fortawesome/free-solid-svg-icons";
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  let user = JSON.parse(localStorage.getItem("user"));
+  let username;
+  let isAuthorized;
+  if (user) {
+    username = user.userName;
+    isAuthorized = user.isAuthorized;
+    console.log(isAuthorized);
+  } else {
+    console.log("Could not read from local storage, redirecting to login");
+    navigate("/login");
+  }
+
+  const doLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
   return (
     <div>
       <nav className="navbar sticky-top bg-dark">
@@ -15,7 +33,7 @@ const Navbar = () => {
             rel="noreferrer"
           >
             <span id="navbarLogo">&lt; / &gt;</span>
-            <span className="navbar-text">Chase Forestello</span>
+            <span className="navbar-text">{username}</span>
           </a>
           <NavLink
             exact="true"
@@ -28,6 +46,13 @@ const Navbar = () => {
               Hello
             </FontAwesomeIcon>
           </NavLink>
+          {isAuthorized === true ? (
+            <span className="logout-btn" onClick={doLogout}>
+              Logout
+            </span>
+          ) : (
+            <div></div>
+          )}
           <a
             href="https://github.com/HangryDevelopment"
             rel="noreferrer"

@@ -1,6 +1,7 @@
 import "./App.scss";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // import the router
+import { useState, useEffect } from "react";
 import LandingPage from "./components/LandingPage/LandingPage";
 import ResponseCard from "./components/ResponseCard/ResponseCard";
 import LoginPage from "./components/LoginPage/LoginPage";
