@@ -58,7 +58,7 @@ const LoginPage = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
       };
-      fetch(USER_API_BASE_URL_GLITCH + "create", request).then((response) => {
+      fetch(USER_API_BASE_URL_LOCAL + "create", request).then((response) => {
         if (response.status !== 200) {
           alert("Registration failed try again: " + response.status);
           console.log(response.statusText);
@@ -97,7 +97,7 @@ const LoginPage = () => {
       method: "GET",
     };
     getUserData = await fetch(
-      USER_API_BASE_URL_GLITCH + "username/" + username,
+      USER_API_BASE_URL_LOCAL + "username/" + username + "/" + password,
       requestOptions
     ).then(async function (response) {
       if (!response.ok) {
@@ -116,7 +116,7 @@ const LoginPage = () => {
         userName: null,
         isAuthorized: false,
       });
-      console.log("User does not exist");
+      console.log("User does not exist or incorrect password");
       console.log("Unauthorized");
     }
   }
@@ -125,10 +125,7 @@ const LoginPage = () => {
     // console.log("User inputs: " + username, password);
     // console.log("DB: " + getUserData.userName, getUserData.password);
     // console.log(getUserData);
-    if (
-      getUserData.userName === username &&
-      getUserData.password === password
-    ) {
+    if (getUserData.userName === username) {
       console.log("Authenticated!");
       setIsAuthorized({
         id: getUserData.id,
@@ -138,7 +135,6 @@ const LoginPage = () => {
       setUser({
         id: getUserData.id,
         userName: getUserData.userName,
-        password: getUserData.password,
         role: getUserData.role,
       });
       setTimeout(() => {
