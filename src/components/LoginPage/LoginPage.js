@@ -16,7 +16,7 @@ const LoginPage = () => {
   });
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState({
     id: null,
     userName: null,

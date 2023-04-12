@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// create instance of axios for each endpoint to use proxy
+// import axios from "axios";
 import "./ResponseCard.scss";
 import StarCount from "../StarCount/StarCount";
 import FavoriteBtn from "../FavoriteBtn/FavoriteBtn";
 // import { YELP_LOCAL_API, YELP_GLITCH_API } from "../../public_constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationCrosshairs } from "@fortawesome/free-solid-svg-icons";
-import api from '../api';
+import api from "../api";
 const YELP_LOCAL = process.env.REACT_APP_YELP_LOCAL;
 const YELP_GLITCH = process.env.REACT_APP_YELP_GLITCH;
-
-// import StarCount from "./StarCount";
 
 export default function FetchAndResultCard(props) {
   let userLat;

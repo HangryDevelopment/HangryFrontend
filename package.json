@@ -48,7 +48,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "${REACT_APP_BASE_GLITCH}",
   "devDependencies": {
     "gh-pages": "^4.0.0",
     "sass": "^1.60.0",
