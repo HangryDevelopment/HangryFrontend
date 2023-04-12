@@ -22,6 +22,7 @@ export default function StarCount(props) {
       html.push(<FontAwesomeIcon icon={faStar} key={i} color="#f2b038" />);
     }
   }
-  console.log(stars);
+  console.log(`Rating: ${rating}`);
+  // console.log(stars);
   return <div>{html}</div>;
 }

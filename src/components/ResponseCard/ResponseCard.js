@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./ResponseCard.scss";
-import { HANGRY_LOCAL_API, HANGRY_GLITCH_API } from "../../public_constants";
+import StarCount from "../StarCount/StarCount";
+import FavoriteBtn from "../FavoriteBtn/FavoriteBtn";
+// import { YELP_LOCAL_API, YELP_GLITCH_API } from "../../public_constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faStar,
-  faStarHalf,
-  faLocationCrosshairs,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLocationCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import api from '../api';
+const YELP_LOCAL = process.env.REACT_APP_YELP_LOCAL;
+const YELP_GLITCH = process.env.REACT_APP_YELP_GLITCH;
+
 // import StarCount from "./StarCount";
 
 export default function FetchAndResultCard(props) {
@@ -35,7 +37,7 @@ export default function FetchAndResultCard(props) {
         className="get-current-loc-btn"
         onClick={userCoords}
       >
-        <FontAwesomeIcon icon={faLocationCrosshairs} />
+        <FontAwesomeIcon icon={faLocationCrosshairs} title="Location" />
       </button>
     );
   };
@@ -54,34 +56,6 @@ export default function FetchAndResultCard(props) {
     );
   };
 
-  // function component to handle rendering star rating
-  const StarCount = () => {
-    let starCount = rating.toString();
-    let stars;
-    let html = [];
-    //   Check for x.5 rating and split
-    console.log(`Stars: ${starCount}`);
-    if (starCount.includes(".5")) {
-      stars = starCount.split(".");
-      stars = stars[0];
-      // print stars x whole number
-      for (let i = 0; i < stars; i++) {
-        html.push(<FontAwesomeIcon icon={faStar} key={i} color="#f2b038" />);
-      }
-      //   add half star for x.5 rating
-      html.push(
-        <FontAwesomeIcon icon={faStarHalf} key={0.5} color="#f2b038" />
-      );
-    } else {
-      // else just render stars based on rating whole number
-      stars = starCount;
-      for (let i = 0; i < stars; i++) {
-        html.push(<FontAwesomeIcon icon={faStar} key={i} color="#f2b038" />);
-      }
-    }
-    return <div>{html}</div>;
-  };
-
   // handler for setting search location from input
   const handleChange = (event) => {
     event.persist();
@@ -90,7 +64,7 @@ export default function FetchAndResultCard(props) {
 
   // useEffect to set url after state is updated
   useEffect(() => {
-    setUrl(HANGRY_GLITCH_API + searchLoc);
+    setUrl(`/yelpFetch/${searchLoc}`);
   }, [searchLoc]);
 
   // handler to initiate api call with null check
@@ -104,7 +78,7 @@ export default function FetchAndResultCard(props) {
 
     // yelp fusion api call
     async function getYelpRandom() {
-      await axios
+      await api
         .get(`${url}`)
         .then((res) => {
           // rng for business selection
@@ -137,7 +111,7 @@ export default function FetchAndResultCard(props) {
 
   return (
     <div className="outerCard">
-      <div className="text-center">
+      <div className="text-center search-cont">
         <form id="searchForm">
           <div className="search-input-loc-button">
             <input
@@ -154,6 +128,7 @@ export default function FetchAndResultCard(props) {
             className={"submitBtn"}
             type={"submit"}
             onClick={handleSubmit}
+            title="Search"
           >
             Hangry!
           </button>
@@ -180,6 +155,7 @@ export default function FetchAndResultCard(props) {
                 )}
                 <span className="selectionCard-info-price">{bisPrice}</span>
               </div>
+              <FavoriteBtn />
             </div>
           ) : (
             <div></div>

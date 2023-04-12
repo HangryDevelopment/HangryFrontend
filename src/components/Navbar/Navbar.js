@@ -13,6 +13,9 @@ const Navbar = () => {
     username = user.userName;
     isAuthorized = user.isAuthorized;
     console.log(isAuthorized);
+  }
+  if (isAuthorized) {
+    console.log("Welcome!");
   } else {
     console.log("Could not read from local storage, redirecting to login");
     navigate("/login");
