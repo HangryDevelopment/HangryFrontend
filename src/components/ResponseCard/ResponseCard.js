@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from "react";
-// create instance of axios for each endpoint to use proxy
-// import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./ResponseCard.scss";
 import StarCount from "../StarCount/StarCount";
 import FavoriteBtn from "../FavoriteBtn/FavoriteBtn";
 // import { YELP_LOCAL_API, YELP_GLITCH_API } from "../../public_constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationCrosshairs } from "@fortawesome/free-solid-svg-icons";
-import api from "../api";
 const YELP_LOCAL = process.env.REACT_APP_YELP_LOCAL;
 const YELP_GLITCH = process.env.REACT_APP_YELP_GLITCH;
 
 export default function FetchAndResultCard(props) {
   let userLat;
   let userLong;
+
+  // check for user auth
+  // const navigate = useNavigate();
+  // let user = JSON.parse(localStorage.getItem("user"));
+  // console.log(user.isAuthorized);
+  // if (!user.isAuthorized) {
+  //   navigate("/login");
+  //   console.log("You must login to access this page.");
+  // }
 
   // useState for all relevant api responses
   const [url, setUrl] = useState("");
@@ -63,7 +71,7 @@ export default function FetchAndResultCard(props) {
 
   // useEffect to set url after state is updated
   useEffect(() => {
-    setUrl(`/yelpFetch/${searchLoc}`);
+    setUrl(`${YELP_GLITCH}${searchLoc}`);
   }, [searchLoc]);
 
   // handler to initiate api call with null check
@@ -77,7 +85,8 @@ export default function FetchAndResultCard(props) {
 
     // yelp fusion api call
     async function getYelpRandom() {
-      await api
+      console.log(url);
+      await axios
         .get(`${url}`)
         .then((res) => {
           // rng for business selection
