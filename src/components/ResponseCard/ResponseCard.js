@@ -13,7 +13,6 @@ const YELP_GLITCH = process.env.REACT_APP_YELP_GLITCH;
 export default function FetchAndResultCard(props) {
   let userLat;
   let userLong;
-
   // check for user auth
   // const navigate = useNavigate();
   // let user = JSON.parse(localStorage.getItem("user"));
@@ -32,6 +31,7 @@ export default function FetchAndResultCard(props) {
   const [rating, setRating] = useState();
   const [closed, setClosed] = useState();
   const [bisPrice, setBisPrice] = useState();
+  const [favData, setFavData] = useState();
 
   // geolocation button
   const GetCurrentLocation = () => {
@@ -71,7 +71,7 @@ export default function FetchAndResultCard(props) {
 
   // useEffect to set url after state is updated
   useEffect(() => {
-    setUrl(`${YELP_GLITCH}${searchLoc}`);
+    setUrl(`${YELP_LOCAL}${searchLoc}`);
   }, [searchLoc]);
 
   // handler to initiate api call with null check
@@ -108,6 +108,7 @@ export default function FetchAndResultCard(props) {
           setRating(selectedBis.rating);
           setClosed(selectedBis.is_closed);
           setBisPrice(selectedBis.price);
+          setFavData(selectedBis);
         })
         .catch((err) => {
           console.log("error");
@@ -163,7 +164,7 @@ export default function FetchAndResultCard(props) {
                 )}
                 <span className="selectionCard-info-price">{bisPrice}</span>
               </div>
-              <FavoriteBtn />
+              <FavoriteBtn favData={favData} />
             </div>
           ) : (
             <div></div>

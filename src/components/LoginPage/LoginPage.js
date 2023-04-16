@@ -60,7 +60,7 @@ const LoginPage = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
       };
-      fetch(USER_API_BASE_URL_GLITCH + "create", request).then((response) => {
+      fetch(USER_API_BASE_URL_LOCAL + "create", request).then((response) => {
         if (response.status !== 200) {
           alert("Registration failed try again: " + response.status);
           console.log(response.statusText);
@@ -99,7 +99,7 @@ const LoginPage = () => {
       method: "GET",
     };
     getUserData = await fetch(
-      USER_API_BASE_URL_GLITCH + "username/" + username + "/" + password,
+      USER_API_BASE_URL_LOCAL + "username/" + username + "/" + password,
       requestOptions
     ).then(async function (response) {
       if (!response.ok) {
