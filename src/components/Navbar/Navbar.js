@@ -4,6 +4,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faBurger } from "@fortawesome/free-solid-svg-icons";
 const Navbar = () => {
+  // Add JWT?
   const navigate = useNavigate();
 
   let user = JSON.parse(localStorage.getItem("user"));
@@ -13,10 +14,13 @@ const Navbar = () => {
     username = user.userName;
     isAuthorized = user.isAuthorized;
     console.log(isAuthorized);
-  } else {
-    console.log("Could not read from local storage, redirecting to login");
-    navigate("/login");
   }
+  // if (isAuthorized) {
+  //   console.log("Welcome!");
+  // } else {
+  //   console.log("Could not read from local storage, redirecting to login");
+  //   navigate("/login");
+  // }
 
   const doLogout = () => {
     localStorage.removeItem("user");

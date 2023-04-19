@@ -1,20 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./ResponseCard.scss";
-import { HANGRY_LOCAL_API, HANGRY_GLITCH_API } from "../../public_constants";
+import StarCount from "../StarCount/StarCount";
+import FavoriteBtn from "../FavoriteBtn/FavoriteBtn";
+// import { YELP_LOCAL_API, YELP_GLITCH_API } from "../../public_constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faStar,
-  faStarHalf,
-  faLocationCrosshairs,
-} from "@fortawesome/free-solid-svg-icons";
-// import StarCount from "./StarCount";
+import { faLocationCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
+const YELP_LOCAL = process.env.REACT_APP_YELP_LOCAL;
+const YELP_GLITCH = process.env.REACT_APP_YELP_GLITCH;
+const USERS_LOCAL = process.env.REACT_APP_USER_API_BASE_URL_LOCAL;
 
 export default function FetchAndResultCard(props) {
   let userLat;
   let userLong;
+  // check for user auth
+  // const navigate = useNavigate();
+  // let user = JSON.parse(localStorage.getItem("user"));
+  // console.log(user.isAuthorized);
+  // if (!user.isAuthorized) {
+  //   navigate("/login");
+  //   console.log("You must login to access this page.");
+  // }
 
   // useState for all relevant api responses
+  const [heartPlaceholder, setHeartPlaceHolder] = useState();
   const [url, setUrl] = useState("");
   const [searchLoc, setSearchLoc] = useState("");
   const [selection, setSelection] = useState("Hangry?");
@@ -23,6 +35,38 @@ export default function FetchAndResultCard(props) {
   const [rating, setRating] = useState();
   const [closed, setClosed] = useState();
   const [bisPrice, setBisPrice] = useState();
+  const [restaurantId, setRestaurantId] = useState();
+  const [favData, setFavData] = useState();
+  const [userId, setUserId] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRestaurants, setUserRestaurants] = useState([]);
+
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    setUserId(user.id);
+    console.log(userId);
+    if ((user.isAuthorized = "true")) {
+      setIsLoggedIn(true);
+    }
+    console.log(isLoggedIn);
+  }, []);
+
+  useEffect(() => {
+    async function getUser() {
+      await axios.get(`${USERS_LOCAL}${userId}`).then((res) => {
+        // console.log(res.data.restaurants);
+        let restaurants = res.data.restaurants;
+        let restaurantArray = [];
+        for (let i = 0; i < restaurants.length; i++) {
+          restaurantArray.push(restaurants[i].restaurantId);
+        }
+        setUserRestaurants(restaurantArray);
+        // console.log(test);
+        console.log(userRestaurants);
+      });
+    }
+    getUser();
+  }, [userId]);
 
   // geolocation button
   const GetCurrentLocation = () => {
@@ -35,7 +79,7 @@ export default function FetchAndResultCard(props) {
         className="get-current-loc-btn"
         onClick={userCoords}
       >
-        <FontAwesomeIcon icon={faLocationCrosshairs} />
+        <FontAwesomeIcon icon={faLocationCrosshairs} title="Location" />
       </button>
     );
   };
@@ -54,34 +98,6 @@ export default function FetchAndResultCard(props) {
     );
   };
 
-  // function component to handle rendering star rating
-  const StarCount = () => {
-    let starCount = rating.toString();
-    let stars;
-    let html = [];
-    //   Check for x.5 rating and split
-    console.log(`Stars: ${starCount}`);
-    if (starCount.includes(".5")) {
-      stars = starCount.split(".");
-      stars = stars[0];
-      // print stars x whole number
-      for (let i = 0; i < stars; i++) {
-        html.push(<FontAwesomeIcon icon={faStar} key={i} color="#f2b038" />);
-      }
-      //   add half star for x.5 rating
-      html.push(
-        <FontAwesomeIcon icon={faStarHalf} key={0.5} color="#f2b038" />
-      );
-    } else {
-      // else just render stars based on rating whole number
-      stars = starCount;
-      for (let i = 0; i < stars; i++) {
-        html.push(<FontAwesomeIcon icon={faStar} key={i} color="#f2b038" />);
-      }
-    }
-    return <div>{html}</div>;
-  };
-
   // handler for setting search location from input
   const handleChange = (event) => {
     event.persist();
@@ -90,13 +106,15 @@ export default function FetchAndResultCard(props) {
 
   // useEffect to set url after state is updated
   useEffect(() => {
-    setUrl(HANGRY_GLITCH_API + searchLoc);
+    setUrl(`${YELP_LOCAL}${searchLoc}`);
   }, [searchLoc]);
 
   // handler to initiate api call with null check
   const handleSubmit = (event) => {
     event.preventDefault();
     // console.log(url);
+    console.log("Switching heart");
+    setHeartPlaceHolder(regularHeart);
     if (searchLoc === "") {
       alert("Please enter a search location");
       return;
@@ -104,6 +122,7 @@ export default function FetchAndResultCard(props) {
 
     // yelp fusion api call
     async function getYelpRandom() {
+      console.log(url);
       await axios
         .get(`${url}`)
         .then((res) => {
@@ -114,6 +133,7 @@ export default function FetchAndResultCard(props) {
               res.data.businesses[random].name +
               ` [${random}]`
           );
+          console.log(res.data.businesses[random].id);
           // log all businesses
           for (let i = 0; i < res.data.businesses.length; i++) {
             console.log(res.data.businesses[i].name);
@@ -126,8 +146,12 @@ export default function FetchAndResultCard(props) {
           setRating(selectedBis.rating);
           setClosed(selectedBis.is_closed);
           setBisPrice(selectedBis.price);
+          setFavData(selectedBis);
+          setRestaurantId(selectedBis.id);
+          setHeartPlaceHolder(regularHeart);
         })
         .catch((err) => {
+          console.log(err);
           console.log("error");
         });
     }
@@ -137,7 +161,7 @@ export default function FetchAndResultCard(props) {
 
   return (
     <div className="outerCard">
-      <div className="text-center">
+      <div className="text-center search-cont">
         <form id="searchForm">
           <div className="search-input-loc-button">
             <input
@@ -154,6 +178,7 @@ export default function FetchAndResultCard(props) {
             className={"submitBtn"}
             type={"submit"}
             onClick={handleSubmit}
+            title="Search"
           >
             Hangry!
           </button>
@@ -180,6 +205,18 @@ export default function FetchAndResultCard(props) {
                 )}
                 <span className="selectionCard-info-price">{bisPrice}</span>
               </div>
+              {userRestaurants.includes(restaurantId) ? (
+                <FontAwesomeIcon icon={solidHeart} color="#f00" />
+              ) : (
+                <div>
+                  {/* <FavoriteBtn
+                    favData={favData}
+                    userId={userId}
+                    heartPlaceholder={regularHeart}
+                  />
+                  <div>Test div for favorites</div> */}
+                </div>
+              )}
             </div>
           ) : (
             <div></div>
