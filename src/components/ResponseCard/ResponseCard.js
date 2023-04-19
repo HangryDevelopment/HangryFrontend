@@ -7,8 +7,11 @@ import FavoriteBtn from "../FavoriteBtn/FavoriteBtn";
 // import { YELP_LOCAL_API, YELP_GLITCH_API } from "../../public_constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 const YELP_LOCAL = process.env.REACT_APP_YELP_LOCAL;
 const YELP_GLITCH = process.env.REACT_APP_YELP_GLITCH;
+const USERS_LOCAL = process.env.REACT_APP_USER_API_BASE_URL_LOCAL;
 
 export default function FetchAndResultCard(props) {
   let userLat;
@@ -23,6 +26,7 @@ export default function FetchAndResultCard(props) {
   // }
 
   // useState for all relevant api responses
+  const [heartPlaceholder, setHeartPlaceHolder] = useState();
   const [url, setUrl] = useState("");
   const [searchLoc, setSearchLoc] = useState("");
   const [selection, setSelection] = useState("Hangry?");
@@ -31,7 +35,38 @@ export default function FetchAndResultCard(props) {
   const [rating, setRating] = useState();
   const [closed, setClosed] = useState();
   const [bisPrice, setBisPrice] = useState();
+  const [restaurantId, setRestaurantId] = useState();
   const [favData, setFavData] = useState();
+  const [userId, setUserId] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRestaurants, setUserRestaurants] = useState([]);
+
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    setUserId(user.id);
+    console.log(userId);
+    if ((user.isAuthorized = "true")) {
+      setIsLoggedIn(true);
+    }
+    console.log(isLoggedIn);
+  }, []);
+
+  useEffect(() => {
+    async function getUser() {
+      await axios.get(`${USERS_LOCAL}${userId}`).then((res) => {
+        // console.log(res.data.restaurants);
+        let restaurants = res.data.restaurants;
+        let restaurantArray = [];
+        for (let i = 0; i < restaurants.length; i++) {
+          restaurantArray.push(restaurants[i].restaurantId);
+        }
+        setUserRestaurants(restaurantArray);
+        // console.log(test);
+        console.log(userRestaurants);
+      });
+    }
+    getUser();
+  }, [userId]);
 
   // geolocation button
   const GetCurrentLocation = () => {
@@ -78,6 +113,8 @@ export default function FetchAndResultCard(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     // console.log(url);
+    console.log("Switching heart");
+    setHeartPlaceHolder(regularHeart);
     if (searchLoc === "") {
       alert("Please enter a search location");
       return;
@@ -96,6 +133,7 @@ export default function FetchAndResultCard(props) {
               res.data.businesses[random].name +
               ` [${random}]`
           );
+          console.log(res.data.businesses[random].id);
           // log all businesses
           for (let i = 0; i < res.data.businesses.length; i++) {
             console.log(res.data.businesses[i].name);
@@ -109,8 +147,11 @@ export default function FetchAndResultCard(props) {
           setClosed(selectedBis.is_closed);
           setBisPrice(selectedBis.price);
           setFavData(selectedBis);
+          setRestaurantId(selectedBis.id);
+          setHeartPlaceHolder(regularHeart);
         })
         .catch((err) => {
+          console.log(err);
           console.log("error");
         });
     }
@@ -164,7 +205,18 @@ export default function FetchAndResultCard(props) {
                 )}
                 <span className="selectionCard-info-price">{bisPrice}</span>
               </div>
-              <FavoriteBtn favData={favData} />
+              {userRestaurants.includes(restaurantId) ? (
+                <FontAwesomeIcon icon={solidHeart} color="#f00" />
+              ) : (
+                <div>
+                  {/* <FavoriteBtn
+                    favData={favData}
+                    userId={userId}
+                    heartPlaceholder={regularHeart}
+                  />
+                  <div>Test div for favorites</div> */}
+                </div>
+              )}
             </div>
           ) : (
             <div></div>
